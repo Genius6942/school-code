@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bogosort Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div
+      id="container"
+      class="h-screen flex flex-wrap justify-center items-center m-10 gap-3"
+    ></div>
+    <div
+      id="render-container"
+      class="fixed z-10 top-0 right-0 left-0 bottom-0 bg-white"
+    ></div>
+
+    <script>
+      // @ts-check
+
+      /**
+       * JS implementation of the fisher-yates shuffle algorithm
+       * @param {number[]} array
+       */
+      function shuffle(array) {
+        // copy array so we don't mutate the original array
+        array = [...array];
+
+        // don't shuffle if we don't need to
+        if (array.length < 1) return array;
+
+        let remaining = array.length;
+
+        while (remaining > 0) {
+          // pick random remaining element
+          const index = Math.floor(Math.random() * remaining);
+          remaining--;
+
+          // swap element at remaining with element at index
+          const temp = array[remaining];
+          array[remaining] = array[index];
+          array[index] = temp;
+        }
+
+        return array;
+      }
+
+      /**
+       * checks if an array is sorted
+       * @param {number[]} array
+       */
+      function isSorted(array) {
+        let last = array[0];
+        for (const next of array.slice(1)) {
+          if (next < last) return false;
+          last = next;
+        }
+        return true;
+      }
+
+      /**
+       * implementation of the famous bogosort algorthim
+       * @param {number[]} nums
+       * @param {(state: number[]) => Promise<void>} step
+       */
+      async function bogoSort(nums, step) {
+        // copy array
+        nums = [...nums];
+
+        while (true) {
+          if (isSorted(nums)) return nums;
+
+          nums = shuffle(nums);
+          await step(nums);
+        }
+      }
+
+      // logic for rendering
+      /**
+       * @type {HTMLDivElement}
+       */
+      // @ts-ignore
+      const container = document.querySelector("#container");
+      /**
+       * @type {HTMLDivElement}
+       */
+      // @ts-ignore
+      const renderer = document.querySelector("#render-container");
+
+      let nums = [2, 10, 3, 5, 4, 8, 7, 1, 9, 6];
+
+      const updateStatic = () => {
+        renderer.classList.add("hidden");
+        container.innerHTML = "";
+        nums.forEach((num, index) => {
+          const div = document.createElement("div");
+          div.className =
+            "flex w-10 h-10 items-center justify-center border-2 border-black mt-3 text-xl font-bold cursor-pointer hover:bg-slate-200";
+          div.innerText = num.toString();
+          div.addEventListener("click", () => {
+            nums.splice(index, 1);
+            updateStatic();
+          });
+          container.appendChild(div);
+        });
+      };
+
+      updateStatic();
+
+      const doSort = async () => {
+        // initiate renderer
+        renderer.innerHTML = "";
+        nums.forEach((num, index) => {
+          const div = document.createElement("div");
+          div.className =
+            "flex w-10 h-10 items-center justify-center border-2 border-black text-xl font-bold transition-all fixed";
+          div.innerText = num.toString();
+          const source = container.children[index];
+          const { top, left } = source.getBoundingClientRect();
+          div.style.top = top.toString() + "px";
+          div.style.left = left.toString() + "px";
+
+          renderer.appendChild(div);
+        });
+
+        renderer.classList.remove("hidden");
+
+        nums = await bogoSort(nums, async (step) => {
+          /**
+           * @type {HTMLDivElement[]}
+          */
+          const newItems = [];
+          
+        });
+
+        updateStatic();
+        renderer.classList.add('hidden');
+      };
+
+      setTimeout(doSort, 1000);
+    </script>
+  </body>
+</html>

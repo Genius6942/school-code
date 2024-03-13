@@ -1,0 +1,1 @@
+// just enables tailwind everywhere
