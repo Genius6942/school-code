@@ -9,12 +9,50 @@
   <body>
     <div
       id="container"
-      class="h-screen flex flex-wrap justify-center items-center m-10 gap-3"
+      class="h-screen flex flex-wrap justify-center items-center p-10 gap-3"
     ></div>
     <div
       id="render-container"
       class="fixed z-10 top-0 right-0 left-0 bottom-0 bg-white"
     ></div>
+    <div class="fixed bottom-0 w-screen p-12 flex items-center">
+      <button
+        class="rounded-lg border-slate-800 border-2 text-slate-800 text-lg p-2 mr-3"
+        onclick="nums = shuffle(nums); updateStatic();"
+      >
+        Shuffle
+      </button>
+      <button
+        class="rounded-lg border-slate-800 border-2 text-slate-800 text-lg p-2 mr-3"
+        onclick="doSort(300)"
+      >
+        BogoSort slow
+      </button>
+      <button
+        class="rounded-lg border-slate-800 border-2 text-slate-800 text-lg p-2 mr-3"
+        onclick="doSort(50)"
+      >
+        BogoSort fast
+      </button>
+
+      <button
+        class="rounded-lg border-slate-800 border-2 text-slate-800 text-lg p-2 mr-auto"
+        onclick="doSort(0)"
+      >
+        BogoSort instant
+      </button>
+
+      <input
+        type="number"
+        class="p-1 border-slate-800 border-2 outline-none rounded-lg w-24 mr-3"
+      />
+      <button
+        class="rounded-lg border-slate-800 border-2 text-slate-800 text-lg p-2"
+        onclick="if (!sorting) { nums.push(parseInt(this.previousElementSibling.value)); updateStatic(); }"
+      >
+        Add
+      </button>
+    </div>
 
     <script>
       // @ts-check
@@ -76,6 +114,40 @@
         }
       }
 
+      /**
+       * find index of arr1[n] in arr2
+       * @param {number[]} arr1
+       * @param {number[]} arr2
+       */
+      function findIndices(arr1, arr2) {
+        /**
+         * @type {number[]}
+         */
+        const indices = [];
+
+        const idxMap = new Map();
+        for (let i = 0; i < arr2.length; i++) {
+          const item = arr2[i];
+          if (!idxMap.has(item)) {
+            idxMap.set(item, [i]);
+          } else {
+            idxMap.get(item).push(i);
+          }
+        }
+
+        for (let i = 0; i < arr1.length; i++) {
+          const item = arr1[i];
+          const indicesInArr2 = idxMap.get(item);
+          if (indicesInArr2 && indicesInArr2.length > 0) {
+            indices.push(indicesInArr2.shift());
+          } else {
+            indices.push(-1);
+          }
+        }
+
+        return indices;
+      }
+
       // logic for rendering
       /**
        * @type {HTMLDivElement}
@@ -88,7 +160,7 @@
       // @ts-ignore
       const renderer = document.querySelector("#render-container");
 
-      let nums = [2, 10, 3, 5, 4, 8, 7, 1, 9, 6];
+      let nums = [2, 10, 3, 5];
 
       const updateStatic = () => {
         renderer.classList.add("hidden");
@@ -108,13 +180,17 @@
 
       updateStatic();
 
-      const doSort = async () => {
+      let sorting = false;
+
+      const doSort = async (transitionTime = 200) => {
+        if (sorting) return;
         // initiate renderer
         renderer.innerHTML = "";
         nums.forEach((num, index) => {
           const div = document.createElement("div");
           div.className =
             "flex w-10 h-10 items-center justify-center border-2 border-black text-xl font-bold transition-all fixed";
+          div.style.transitionDuration = transitionTime + "ms";
           div.innerText = num.toString();
           const source = container.children[index];
           const { top, left } = source.getBoundingClientRect();
@@ -126,19 +202,47 @@
 
         renderer.classList.remove("hidden");
 
-        nums = await bogoSort(nums, async (step) => {
+        const res = await bogoSort(nums, async (step) => {
+          if (transitionTime === 0) return;
           /**
            * @type {HTMLDivElement[]}
-          */
+           */
           const newItems = [];
-          
+
+          const indicies = findIndices(nums, step);
+
+          const newLocations = indicies.map((index, i) => {
+            /**
+             * @type {HTMLDivElement}
+             */
+            const target = renderer.children[index];
+            const { top, left } = target.style;
+            return { top, left };
+          });
+
+          [...renderer.children].forEach(
+            /**
+             * @param {HTMLDivElement} child
+             * @param {number} i
+             */
+            (child, i) => {
+              child.style.top = newLocations[i].top;
+              child.style.left = newLocations[i].left;
+            }
+          );
+
+          nums = step;
+
+          await new Promise((resolve) => setTimeout(resolve, transitionTime + 10));
         });
 
-        updateStatic();
-        renderer.classList.add('hidden');
-      };
+        nums = res;
 
-      setTimeout(doSort, 1000);
+        updateStatic();
+        renderer.classList.add("hidden");
+
+        sorting = false;
+      };
     </script>
   </body>
 </html>
