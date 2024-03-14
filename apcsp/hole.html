@@ -30,7 +30,7 @@
       >
         Start
       </button>
-      <div class="flex gap-8">
+      <div class="flex gap-8 flex-wrap justify-center">
         <div class="flex flex-col gap-4">
           <h2 class="text-3xl text-slate-900">Gravity</h2>
           <input
@@ -110,6 +110,14 @@
             />
             <span id="startingDistance-max-value"></span>
           </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h2 class="text-3xl text-slate-900">Accretion</h2>
+          <input type="checkbox" checked onchange="config.accretion = this.checked" />
+        </div>
+        <div class="flex flex-col gap-4">
+          <h2 class="text-3xl text-slate-900">Bounce</h2>
+          <input type="checkbox" checked onchange="config.bounce = this.checked" />
         </div>
       </div>
     </div>
