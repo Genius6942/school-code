@@ -1,3 +1,4 @@
+<!-- https://misc.haelp.dev/gravity -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,21 +19,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body class="select-none">
+  <body class="select-none bg-slate-900 text-white">
     <div
-      class="bg-white fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center flex-col z-20"
+      class="bg-slate-900 fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center flex-col z-20 transition-all duration-1000 opacity-1"
       id="config"
     >
-      <h1 class="text-7xl text-center text-slate-900 mb-10">Gravity Simulator</h1>
+      <h1 class="text-7xl text-center text-white mb-10">Gravity Simulator</h1>
       <button
         id="start"
-        class="text-slate-900 border-slate-900 border-2 p-3 text-lg rounded-xl hover:bg-slate-200 transition-all mb-20"
+        class="text-white border-white border-2 p-3 text-lg rounded-xl hover:bg-slate-800 transition-all mb-20"
       >
         Start
       </button>
       <div class="flex gap-8 flex-wrap justify-center">
         <div class="flex flex-col gap-4">
-          <h2 class="text-3xl text-slate-900">Gravity</h2>
+          <h2 class="text-3xl text-white">Gravity</h2>
           <input
             type="range"
             id="gravity"
@@ -45,7 +46,7 @@
           <span id="gravity-value"></span>
         </div>
         <div class="flex flex-col gap-4">
-          <h2 class="text-3xl text-slate-900">Max Velocity</h2>
+          <h2 class="text-3xl text-white">Max Velocity</h2>
           <input
             type="range"
             id="maxVelocity"
@@ -58,7 +59,7 @@
         </div>
 
         <div class="flex flex-col gap-4">
-          <h2 class="text-3xl text-slate-900">Simulation Speed</h2>
+          <h2 class="text-3xl text-white">Simulation Speed</h2>
           <input
             type="range"
             id="simulationSpeed"
@@ -71,7 +72,7 @@
           <span id="simulationSpeed-value"></span>
         </div>
         <div class="flex flex-col gap-4">
-          <h2 class="text-3xl text-slate-900">Particle count</h2>
+          <h2 class="text-3xl text-white">Particle count</h2>
           <input
             type="range"
             id="particles"
@@ -85,7 +86,7 @@
         </div>
 
         <div class="flex flex-col gap-4">
-          <h2 class="text-3xl text-slate-900">Starting Distance</h2>
+          <h2 class="text-3xl text-white">Starting Distance</h2>
           <div class="flex gap-3 items-center">
             Min:
             <input
@@ -112,21 +113,21 @@
           </div>
         </div>
         <div class="flex flex-col gap-4">
-          <h2 class="text-3xl text-slate-900">Accretion</h2>
+          <h2 class="text-3xl text-white">Accretion</h2>
           <input type="checkbox" checked onchange="config.accretion = this.checked" />
         </div>
-        <div class="flex flex-col gap-4">
-          <h2 class="text-3xl text-slate-900">Bounce</h2>
-          <input type="checkbox" checked onchange="config.bounce = this.checked" />
-        </div>
+        <!-- <div class="flex flex-col gap-4">
+          <h2 class="text-3xl text-white">Bounce</h2>
+          <input type="checkbox" onchange="config.bounce = this.checked" />
+        </div> -->
       </div>
     </div>
 
     <button
       id="pause"
-      class="fixed top-10 right-10 rounded-full w-8 h-8 bg-white flex items-center justify-center z-10 hover:bg-slate-200 transition-all hover:scale-110 scale-100 cursor-pointer"
+      class="fixed top-10 right-10 rounded-full w-8 h-8 flex items-center justify-center z-10 transition-all hover:scale-110 scale-100 cursor-pointer"
     >
-      <img src="https://www.svgrepo.com/show/149256/pause-button.svg" />
+      <img src="https://www.svgrepo.com/show/149256/pause-button.svg" class="invert"/>
     </button>
     <script>
       // @ts-check
@@ -136,7 +137,7 @@
         gravity: 10,
         maxVelocity: 40,
         simulationSpeed: 0.1,
-        particles: 1000,
+        particles: 500,
         startingDistance: [10, Math.min(window.innerHeight, window.innerWidth) / 2],
       };
 
@@ -255,12 +256,15 @@
           this._radius = radius;
         }
 
-        update() {
+        /**
+         * @param {number} selfIndex
+         */
+        update(selfIndex) {
           const loopStart = false ? bodies.indexOf(this) : 0;
 
           for (let i = loopStart; i < bodies.length; i += 1) {
+            if (i == selfIndex) continue;
             const body = bodies[i];
-            if (body === this) continue;
 
             let distance = Math.sqrt((this.x - body.x) ** 2 + (this.y - body.y) ** 2);
             if (distance <= this.radius + body.radius && config.accretion) {
@@ -270,17 +274,14 @@
                   (this.vx * this.mass + body.vx * body.mass) / (this.mass + body.mass);
                 this.vy =
                   (this.vy * this.mass + body.vy * body.mass) / (this.mass + body.mass);
-                const idx = bodies.indexOf(body);
-                bodies.splice(idx, 1);
+                bodies.splice(i, 1);
               } else {
-                // same thing but with the other body
                 body.mass += this.mass;
                 body.vx =
                   (body.vx * body.mass + this.vx * this.mass) / (body.mass + this.mass);
                 body.vy =
                   (body.vy * body.mass + this.vy * this.mass) / (body.mass + this.mass);
-                const idx = bodies.indexOf(this);
-                bodies.splice(idx, 1);
+                bodies.splice(selfIndex, 1);
                 return;
               }
             } else {
@@ -347,7 +348,7 @@
         if (!paused) {
           greatestMass = bodies.reduce((a, b) => (a.mass < b.mass ? b : a)).mass;
 
-          bodies.forEach((body) => body.update());
+          bodies.forEach((body, index) => body.update(index));
           bodies.forEach((body) => body.move());
         }
         bodies.forEach((body) => body.render());
@@ -429,7 +430,7 @@
             new Body({
               x: Math.cos(angle) * distance + center.x,
               y: Math.sin(angle) * distance + center.y,
-              color: "black",
+              color: "white",
               mass: mass,
               vx:
                 Math.cos(angle + Math.PI / 2) *
@@ -448,7 +449,7 @@
             new Body({
               x: Math.cos(angle) * distance + center.x,
               y: Math.sin(angle) * distance + center.y,
-              color: "black",
+              color: "white",
               mass: mass,
               vx:
                 Math.cos(angle + Math.PI / 2) *
@@ -505,7 +506,9 @@
       // @ts-ignore
       document.getElementById("start").addEventListener("click", () => {
         // @ts-ignore
-        document.getElementById("config").style.display = "none";
+        document
+          .getElementById("config")
+          .classList.add("opacity-0", "pointer-events-none");
         console.log(config.startingDistance);
         generateParticles({
           num: config.particles,
