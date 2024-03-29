@@ -38,7 +38,7 @@
             type="range"
             id="gravity"
             min="-30"
-            max="30"
+            max="60"
             step="1"
             value="10"
             class="w-24"
@@ -267,7 +267,11 @@
             const body = bodies[i];
 
             let distance = Math.sqrt((this.x - body.x) ** 2 + (this.y - body.y) ** 2);
-            if (distance <= this.radius + body.radius && config.accretion) {
+            if (
+              distance <= this.radius + body.radius &&
+              config.accretion &&
+              !(this.pinned || body.pinned)
+            ) {
               if (!body.pinned) {
                 this.mass += body.mass;
                 this.vx =
