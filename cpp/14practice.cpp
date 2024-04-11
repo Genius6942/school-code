@@ -76,7 +76,7 @@ int main() {
       s3 = "to stop some corporate closure";
       break;
     case 4:
-      s3 = "to save the family buisness";
+      s3 = "to save the family business";
       break;
     case 5:
       s3 = "to appease their sassy friend or widowed parent";
