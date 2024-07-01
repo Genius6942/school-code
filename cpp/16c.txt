@@ -1,0 +1,105 @@
+My Playlist
+"You and whose army" 3:09 Radiohead
+"Kashmir" 8:32 Led Zeppelin
+"London Calling" 3:23 The Clash
+"Hate to Say I Told You So" 3:19 The Hives
+"Song of the AI" 4:12 GitHub Copilot
+"Code Symphony" 5:23 OpenAI
+"Terminal Blues" 3:45 Linux Band
+"Commit Anthem" 2:56 Git Masters
+"Pull Request Rhapsody" 6:15 Version Controllers
+"Bug Hunter" 3:30 Debuggers
+"Refactor Tango" 4:20 Clean Coders
+"Binary Ballad" 5:00 Bit Manipulators
+"Memory Leak Lullaby" 4:50 Garbage Collectors
+"Exception March" 3:40 Error Handlers
+"Concurrency Carol" 5:10 Thread Jugglers
+"Algorithm Aria" 6:00 Complexity Analysts
+"Data Structure Serenade" 4:30 Stack Pushers
+"Network Nocturne" 5:20 Packet Senders
+"Database Ditty" 4:10 Query Optimizers
+"Cache Chant" 3:50 Memory Managers
+"Pattern Polka" 4:00 Design Pattern Dancers
+"Recursion Reel" 5:30 Stack Unwinders
+"Syntax Samba" 4:40 Parser Performers
+"Runtime Rag" 3:30 Compiler Composers
+"Object Oriented Overture" 5:00 Class Designers
+"Functional Fugue" 4:30 Lambda Lovers
+"Procedural Prelude" 3:50 Goto Gurus
+"Assembly Anthem" 5:20 Low Level Legends
+"Scripting Song" 4:10 High Level Heroes
+"Web Waltz" 3:40 HTML Harmonizers
+"CSS Chorus" 5:00 Style Selectors
+"JavaScript Jig" 4:30 Event Loopers
+"Python Polonaise" 3:50 Whitespace Worshippers
+"Java Jive" 5:20 Garbage Collection Group
+"C# Cantata" 4:10 .NET Notables
+"C++ Caprice" 3:40 Pointer Professionals
+"Ruby Rondo" 5:00 Gem Gurus
+"PHP Phantasy" 4:30 Hypertext Preprocessors
+"Swift Serenade" 3:50 Apple Admirers
+"Kotlin Konzertstück" 5:20 JVM Virtuosos
+"Go Gigue" 4:10 Goroutine Group
+"Rust Rhapsody" 3:40 Memory Safety Maestros
+"TypeScript Toccata" 5:00 Static Typing Supporters
+"Shell Script Scherzo" 4:30 Bash Band
+"Perl Partita" 3:50 Regex Rockers
+"SQL Sonata" 5:20 Query Composers
+"NoSQL Nocturne" 4:10 Document Dancers
+"Git Gavotte" 3:40 Version Control Virtuosos
+"Docker Divertimento" 5:00 Container Conductors
+"Kubernetes Kavakos" 4:30 Cluster Conductors
+"Linux Lied" 3:50 Kernel Crooners
+"Windows Waltz" 5:20 GUI Group
+"MacOS Minuet" 4:10 Apple Orchestra
+"Android Aria" 3:40 Mobile Maestros
+"iOS Intermezzo" 5:00 App Artists
+"Flutter Fugue" 4:30 Cross Platform Composers
+"React Native Rondo" 3:50 JavaScript Jugglers
+"VueJS Virelai" 5:20 Component Composers
+"Angular Anthem" 4:10 TypeScript Troupe
+"Bootstrap Ballade" 3:40 Responsive Design Rockers
+"Tailwind Toccata" 5:00 Utility First Unison
+"Sass Symphony" 4:30 CSS Composers
+"Less Lied" 3:50 Preprocessor Performers
+"PostCSS Polka" 5:20 Modern Style Maestros
+"Babel Ballade" 4:10 JavaScript Jugglers
+"Webpack Waltz" 3:40 Module Bundling Band
+"Rollup Rhapsody" 5:00 ES Module Enthusiasts
+"Parcel Partita" 4:30 Zero Config Composers
+"Jest Jig" 3:50 Testing Troupe
+"Mocha Minuet" 5:20 Assertion Artists
+"Chai Chaconne" 4:10 Expectation Experts
+"Sinon Sonata" 3:40 Stubbing Symphony
+"Enzyme Elegy" 5:00 React Testing Rockers
+"Testing Library Toccata" 4:30 User Event Enthusiasts
+"Cypress Caprice" 3:50 End-to-End Experts
+"Puppeteer Polka" 5:20 Browser Automation Band
+"Playwright Partita" 4:10 Multi-Browser Maestros
+"Selenium Serenade" 3:40 Web Driver Wizards
+"Jenkins Jive" 5:00 CI/CD Composers
+"Travis Toccata" 4:30 Build Automation Band
+"CircleCI Caprice" 3:50 Continuous Integration Crooners
+"GitHub Actions Aria" 5:20 Workflow Wizards
+"GitLab CI Cantata" 4:10 Pipeline Performers
+"Ansible Anthem" 3:40 Configuration Management Choir
+"Terraform Toccata" 5:00 Infrastructure as Code Orchestra
+"Kafka Konzertstück" 4:30 Stream Processing Symphony
+"RabbitMQ Rhapsody" 3:50 Message Queue Maestros
+"Redis Reel" 5:00 In-Memory Database Dancers
+"PostgreSQL Polka" 4:30 SQL Symphony
+"MySQL Minuet" 3:50 Database Design Dancers
+"MongoDB Mazurka" 5:00 Document Database Divas
+"Cassandra Cantata" 4:10 Column Store Choir
+"Neo4j Nocturne" 3:40 Graph Database Group
+"Elasticsearch Elegy" 5:00 Search Engine Symphony
+"Logstash Lied" 4:30 Log Processing Legends
+"Kibana Konzertstück" 3:50 Data Visualization Virtuosos
+"Prometheus Polka" 5:00 Monitoring Maestros
+"Grafana Gavotte" 4:30 Dashboard Design Dancers
+"New Relic Rhapsody" 3:40 Performance Monitoring Performers
+"Datadog Divertimento" 5:00 Observability Orchestra
+"Splunk Sonata" 4:10 Log Analysis Artists
+"CloudWatch Carol" 3:40 AWS Monitoring Maestros
+"Stackdriver Serenade" 5:00 GCP Monitoring Group
+"Azure Monitor Minuet" 4:10 Microsoft Monitoring Maestros
